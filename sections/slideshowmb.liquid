@@ -1,0 +1,254 @@
+<div
+  class="swiper swipermb section-{{ section.id }}-padding w-full h-[32rem] lg:h-[40rem]"
+  data-aos="fade-in"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out"
+>
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'slide' %}
+          <div class="swiper-slide w-full h-full block relative ">
+            {% if block.settings.image %}
+              {{
+                block.settings.image
+                | image_url: width: 2048
+                | image_tag:
+                  class: 'absolute h-full w-full left-0 right-0 object-cover hidden md:block',
+                  loading: 'lazy'
+              }}
+            {% else %}
+              {{
+                'lifestyle-1'
+                | placeholder_svg_tag: 'bg-dark-charcoal/75 fill-dark-charcoal hidden md:block absolute w-full h-full left-0 right-0'
+              }}
+            {% endif %}
+            {% if block.settings.image_movil %}
+              {{
+                block.settings.image_movil
+                | image_url: width: 400
+                | image_tag:
+                  class: 'absolute h-full w-full left-0 right-0 object-cover block md:hidden',
+                  loading: 'lazy'
+              }}
+
+            {% else %}
+              {{
+                'lifestyle-1'
+                | placeholder_svg_tag: 'bg-dark-charcoal/75 fill-dark-charcoal block md:hidden absolute w-full h-full left-0 right-0'
+              }}
+            {% endif %}
+            <div
+              id="slide-mb-{{ forloop.index0 }}"
+              class="max-w-screen-page absolute left-0 right-0 mx-auto p-7 lg:p-2.5 z-[2] flex -  {% if block.settings.reverse == true %} flex-col {% else%} flex-col-reverse {% endif %}   fle lg:flex-row justify-center lg:justify-self-auto lg:items-center h-full - {% if block.settings.reverse == true %} lg:flex-row-reverse{% endif %}  {{ block.shopify_attributes }}"
+            >
+              <div class="flex flex-col items-start justify-start w-full lg:w-[47%] gap-2.5 px-8 lg:px-0">
+                {% if block.settings.heading_slide != blank %}
+                  <h3
+                    {% if block.settings.heading_color != blank %}
+                      style="color:{{ block.settings.heading_color }};"
+                    {% endif %}
+                    class="text-title_movil lg:text-title tracking-normal font-fredasansstd text-start"
+                  >
+                    {{ block.settings.heading_slide }}
+                  </h3>
+                {% endif %}
+                {% if block.settings.paragraph_slide != blank %}
+                  {% if block.settings.text_color != blank %}
+                    {%- style -%}
+                      #slide-mb-{{ forloop.index0 }}> div > div > * {
+                        color:{{ block.settings.text_color }};
+                      }
+                    {%- endstyle -%}
+                  {% endif %}
+                  <div
+                    class="font-fredasansstd text-sm tracking-normal font-book lg:w-9/12 lg:mr-auto lg:mb-0"
+                  >
+                    {{ block.settings.paragraph_slide }}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.button_show %}
+                  <a
+                    {% if block.settings.button_link != blank %}
+                      href="{{ block.settings.button_link }}"
+                    {% endif %}
+                    class="{% if block.settings.style == 'primary' %} bg-white text-rich-electric-blue {% else %}bg-dark-charcoal text-white {% endif %} transition tracking-wider  ease-in-out duration-300 py-5 px-8 lg:py-5 lg:px-12 inline-flex justify-center rounded-full  text-sm font-bold font-fredasansstd mx-auto mb-7  lg:m-0 lg:mr-auto lg:mt-7 cursor-pointer hover:bg-rich-electric-blue hover:text-white"
+                  >
+                    {% if block.settings.button_label != blank %}
+                      {{ block.settings.button_label | escape }}
+                    {% endif %}
+                  </a>
+                {% endif %}
+              </div>
+              <div class="w-full lg:w-[53%] relative flex justify-center items-center p-7 lg:p-0 min-h-[250px] h-auto">
+                {%- if block.settings.image_side != null -%}
+                  {{
+                    block.settings.image_side
+                    | image_url: width: 510
+                    | image_tag: class: 'object-contain lg:object-cover h-full lg:h-auto  lg:w-full', loading: 'lazy'
+                  }}
+                {%- else -%}
+                  <div class="absolute w-full min-h-[210px] lg:min-h-[410px] top-0 bottom-0 left-0 right-0 lg:p-2.5 mb-4 m-auto lg:mb-auto">
+                    {{
+                      'image'
+                      | placeholder_svg_tag: 'bg-chinese-silver fill-dark-charcoal block absolute w-full h-full left-0 right-0 top-0 bottom-0 border-2 border-solid border-dark-charcoal'
+                    }}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+    <!-- End Slides -->
+  </div>
+
+  <!-- If we need pagination -->
+  <div class="swiper-pagination flex justify-center items-center !bottom-6 lg:!bottom-8"></div>
+</div>
+
+<!-- Initialize Swiper -->
+<script>
+  window.addEventListener('load', function () {
+    const swiper = new Swiper('.swipermb', {
+      // Optional parameters
+      direction: 'horizontal',
+      slidesPerView: 1,
+      loop: true,
+      lazyLoading: true,
+      keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+      },
+
+      // If we need pagination
+      pagination: {
+        clickable: true,
+        bulletActiveClass: '!bg-opacity-100 border-solid lg:border-2 border-white',
+        bulletClass: 'swiper-bullet-mb ',
+        el: '.swiper-pagination',
+        renderBullet: function (index, className) {
+          return (
+            '<span class="' +
+            className +
+            '  w-12 lg:w-[60px]  rounded-full bg-white bg-opacity-50 inline-block h-0.5 mx-1 lg:mx-2.5 cursor-pointer"></span>'
+          );
+        },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Slideshow Mb",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen de fondo"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_movil",
+          "label": "Imagen de fondo para dispositivos móviles"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_side",
+          "label": "Imagen lateral, aspect ratio 1:1"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading_slide",
+          "default": "<b>Básicos para cualquier momento</b>",
+          "label": "Encabezado"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Color del Encabezado",
+          "default": "#ffffff"
+        },
+        {
+          "type": "richtext",
+          "id": "paragraph_slide",
+          "label": "Paragraph"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Color del texto",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Bóton (Call to Action)"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_show",
+          "label": "Agregar CTA",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto del bóton",
+          "default": "Comprar ahora"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Enlace del Bóton"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Estilo del bóton",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primario"
+            },
+            {
+              "value": "secundary",
+              "label": "Secundario"
+            }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "reverse",
+          "label": "Invertir imagen con texto",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow Mb",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

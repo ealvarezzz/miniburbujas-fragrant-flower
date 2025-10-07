@@ -1,0 +1,83 @@
+<div
+  class="w-full overflow-hidden  lg:my-10"
+  data-aos="fade-up"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out"
+>
+  <div class="max-w-screen-page mx-auto p-8 pb-4 lg:p-2.5">
+    <h2
+      class="font-fredasansstd font-bold text-title_movil tracking-normal  mb-4"
+    >
+      <span class="text-dark-charcoal"> {{ section.settings.heading_first }}</span>
+      <span class="text-rich-electric-blue">{{ section.settings.heading_second }} </span>
+    </h2>
+    <ul>
+      {%- for block in section.blocks -%}
+        {% case block.type %}
+          {%- when 'paragraph' -%}
+            <li
+              class="font-fredasansstd font-book text-xs text-dark-charcoal tracking-normal flex items-start mb-2"
+              {{ block.shopify_attributes }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 shrink-0 mr-2 fill-rich-electric-blue">
+                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+              </svg>
+
+              <span class="pt-0.5 lg:pt-1"> {{ block.settings.paragraph }}</span>
+            </li>
+        {%- endcase -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Lista mb",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_first",
+      "label": "Encabezado primera frase",
+      "default": "Así es como Mini Burbujas aporta valor a tu"
+    },
+    {
+      "type": "text",
+      "id": "heading_second",
+      "label": "Encabezado segunda frase",
+      "default": "negocio de calzado infantil:"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "name": "Párrafo",
+      "limit": 15,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "paragraph",
+          "label": "Paragraph",
+          "default": "<p> Si estás pensando en emprender o en impulsar tu negocio de calzado infantil estás en el lugar ideal para convertirte en Distribuidor de Mini Burbujas. </p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lista mb",
+      "blocks": [
+        {
+          "type": "paragraph"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

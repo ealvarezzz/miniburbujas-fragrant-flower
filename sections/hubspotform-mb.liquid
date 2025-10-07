@@ -1,0 +1,87 @@
+<div
+  class="w-full overflow-hidden  lg:my-10"
+  data-aos="fade-up"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out"
+>
+  <div class="max-w-screen-page mx-auto flex flex-col lg:flex-row justify-center items-stretch gap-2.5 lg:my-5">
+    <div class="w-full lg:w-1/2 relative p-8 pb-4 lg:p-2.5 flex flex-col justify-center gap-5">
+      {%- unless section.settings.heading_first == blank -%}
+        <h2
+          class="font-fredasansstd font-bold text-title_movil tracking-normal  mb-1"
+        >
+          <span class="text-dark-charcoal"> {{ section.settings.heading_first }}</span>
+          <span class="text-rich-electric-blue">{{ section.settings.heading_second }} </span>
+        </h2>
+      {%- endunless -%}
+    </div>
+    <div
+      class="w-full lg:w-1/2 flex justify-center items-center p-8 pt-4 lg:p-0"
+      {% if section.settings.form_id != blank %}
+        id="{{ section.settings.form_id | replace: " ", "-" }}"
+      {% endif %}
+    >
+      <div
+        class="w-full sm:max-w-xs md:max-w-sm lg:max-w-full h-full"
+      >
+        {% if section.settings.hubspot != empty %}
+          {{ section.settings.hubspot }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "HubSpot Form Mb",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Título"
+    },
+    {
+      "type": "text",
+      "id": "heading_first",
+      "label": "Encabezado primera frase",
+      "default": "Llena el formulario y empieza a vender"
+    },
+    {
+      "type": "text",
+      "id": "heading_second",
+      "label": "Encabezado segunda frase",
+      "default": "la magia de nuestro calzado Mini Burbujas"
+    },
+    {
+      "type": "header",
+      "content": "Formulario"
+    },
+    {
+      "type": "text",
+      "id": "form_id",
+      "label": "Id del Formulario",
+      "default": "form"
+    },
+    {
+      "type": "html",
+      "id": "hubspot",
+      "label": "Formulario de HubSpot"
+    },
+    {
+      "type": "paragraph",
+      "content": "Pega tu script de hubspot aquí"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "HubSpot Form Mb"
+    }
+  ]
+}
+{% endschema %}

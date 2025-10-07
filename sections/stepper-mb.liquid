@@ -1,0 +1,215 @@
+{{ 'photoswipe.css' | asset_url | stylesheet_tag }}
+<div
+  class="w-full overflow-hidden"
+  data-aos="fade-up"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out"
+  x-data="{ activeStep: 0 }"
+>
+  <div
+    class="max-w-screen-page mx-auto h-full lg:min-h-[36rem] mb-10"
+    {% if section.settings.steps_id != blank %}
+      id="{{ section.settings.steps_id | replace: " ", "-" }}"
+    {% endif %}
+  >
+    <div class="w-full relative p-8 pb-10 lg:p-2.5 lg:mt-10 gallery-photoswipe pswp-gallery">
+      {% comment %}
+        Navegación
+      {% endcomment %}
+      <nav aria-label="Progreso">
+        <ol role="list" class="lg:flex">
+          {%- for block in section.blocks -%}
+            {% case block.type %}
+              {%- when 'step' -%}
+                <li class="flex-1 mt-4 first:mt-0 lg:mt-0 lg:ml-4 lg:first:ml-0" {{ block.shopify_attributes }}>
+                  <a
+                    @click="activeStep = {{ forloop.index0 }}"
+                    class="transition-all !cursor-pointer duration-300 ease-in-out border-l-2 lg:border-l-0 lg:border-t-2  py-2 pl-4 flex flex-col font-fredasansstd tracking-normal"
+                    :class="activeStep >= {{ forloop.index0 }}  ? 'border-rich-electric-blue' :'border-chinese-silver'"
+                  >
+                    <span
+                      class="text-sm font-bold"
+                      :class="activeStep >= {{ forloop.index0 }} ? 'text-rich-electric-blue':'text-chinese-silver'"
+                    >
+                      Paso {{ forloop.index }}
+                    </span>
+                    <span
+                      class="text-xs font-book"
+                      :class="activeStep == {{ forloop.index0 }} ? 'text-dark-charcoal':'text-chinese-silver'"
+                    >
+                      {{ block.settings.step_name }}
+                    </span>
+                  </a>
+                  <div
+                    x-show="activeStep == {{ forloop.index0 }}"
+                    x-collapse.duration.1000ms
+                    class="flex flex-col pt-8 lg:hidden"
+                  >
+                    <div
+                      class="w-full p-4 [&>ol]:list-decimal [&>ul]:list-disc [&>ol>li]:mb-2.5 [&>ul>li]:mb-2.5 [&>ol>li]:last:mb-0 [&>ul>li>a]:underline [&>ul>li>a]:text-rich-electric-blue [&>ol>li>a]:underline [&>ol>li>a]:text-rich-electric-blue font-fredasansstd font-book text-xs tracking-normal text-dark-charcoal"
+                    >
+                      {% if block.settings.instruction != empty %}
+                        {{ block.settings.instruction }}
+                      {% endif %}
+                    </div>
+                    <div class="w-full relative h-80 p-4 ">
+                      {% if block.settings.step_image_movil %}
+                        <a
+                          class="gallery-item-photo-movil w-full h-full aspect-auto  relative lg:hidden block"
+                          href="{{ block.settings.step_image_movil | image_url: width: 2500 }}"
+
+                          data-pswp-width="{{ block.settings.step_image_movil.width }}"
+                          data-pswp-height="{{ block.settings.step_image_movil.height }} "
+                          target="_blank"
+                        >
+                          {{
+                            block.settings.step_image_movil
+                            | image_url: width: 500
+                            | image_tag:
+                              class: 'absolute aspect-auto block h-full w-full left-0 right-0 top-0 bottom-0 object-contain',
+                              loading: 'lazy'
+                          }}
+                        </a>
+                      {% else %}
+                        {{
+                          'product-1'
+                          | placeholder_svg_tag: 'bg-dark-charcoal/75 fill-dark-charcoal absolute w-full h-full left-0 right-0 top-0 bottom-0 block lg:hidden'
+                        }}
+                      {% endif %}
+                    </div>
+                  </div>
+                </li>
+            {%- endcase -%}
+          {%- endfor -%}
+        </ol>
+      </nav>
+
+      {% comment %}
+        Detalles de pasos con imagenes
+      {% endcomment %}
+      <div class="hidden lg:block">
+        {%- for block in section.blocks -%}
+          {% case block.type %}
+            {%- when 'step' -%}
+              <div
+                class="flex-row pt-8 transition-all duration-300 ease-in-out"
+                :class="activeStep == {{ forloop.index0 }} ? 'opacity-100 flex' :'opacity-0 hidden'"
+              >
+                <div
+                  class="w-1/2 p-4 lg:flex lg:flex-col lg:items-center lg:justify-center [&>ol]:list-decimal [&>ul]:list-disc [&>ol>li]:mb-2.5 [&>ul>li]:mb-2.5 [&>ol>li]:last:mb-0 [&>ul>li>a]:underline [&>ul>li>a]:text-rich-electric-blue [&>ol>li>a]:underline [&>ol>li>a]:text-rich-electric-blue font-fredasansstd font-book text-xs tracking-normal text-dark-charcoal"
+                >
+                  {% if block.settings.instruction != empty %}
+                    {{ block.settings.instruction }}
+                  {% endif %}
+                </div>
+                <div class="w-1/2 relative h-[29rem] p-4">
+                  {% if block.settings.step_image_desktop %}
+                    <a
+                      class="gallery-item-photo w-full h-full relative hidden lg:block"
+                      href="{{ block.settings.step_image_desktop | image_url: width: 2500 }}"
+                      data-pswp-width="{{ block.settings.step_image_desktop.width }}"
+                      data-pswp-height="{{ block.settings.step_image_desktop.height }}"
+                      target="_blank"
+                    >
+                      {{
+                        block.settings.step_image_desktop
+                        | image_url: width: 500
+                        | image_tag:
+                          class: 'absolute aspect-auto h-full w-full left-0 right-0 top-0 bottom-0 object-contain block',
+                          loading: 'lazy'
+                      }}
+                    </a>
+                  {% else %}
+                    {{
+                      'product-1'
+                      | placeholder_svg_tag: 'bg-dark-charcoal/75 fill-dark-charcoal absolute w-full h-full left-0 right-0 top-0 bottom-0 hidden lg:block'
+                    }}
+                  {% endif %}
+                </div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import PhotoSwipeLightbox from '{{ 'photoswipe-lightbox.esm.js' | asset_url }}';
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: '.gallery-photoswipe',
+    children: '.gallery-item-photo',
+    pswpModule: () => import('{{ 'photoswipe.esm.js' | asset_url }}')
+  });
+  lightbox.init();
+</script>
+
+<script type="module">
+  import PhotoSwipeLightbox from '{{ 'photoswipe-lightbox.esm.js' | asset_url }}';
+  const lightboxMovil = new PhotoSwipeLightbox({
+    gallery: '.gallery-photoswipe',
+    children: '.gallery-item-photo-movil',
+    pswpModule: () => import('{{ 'photoswipe.esm.js' | asset_url }}')
+  });
+  lightboxMovil.init();
+</script>
+
+{% schema %}
+{
+  "name": "Stepper",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "steps_id",
+      "label": "Id de la sección",
+      "default": "steps"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Paso",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_name",
+          "label": "Descripción breve del paso",
+          "default": "Crear una cuenta"
+        },
+        {
+          "type": "richtext",
+          "id": "instruction",
+          "label": "Instrucciones del paso"
+        },
+        {
+          "type": "image_picker",
+          "id": "step_image_desktop",
+          "label": "Image para escritorio"
+        },
+        {
+          "type": "image_picker",
+          "id": "step_image_movil",
+          "label": "Image para móvil"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stepper Mb",
+      "blocks": [
+        {
+          "type": "step"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

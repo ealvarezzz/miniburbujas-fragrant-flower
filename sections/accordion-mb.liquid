@@ -1,0 +1,249 @@
+<div
+  class="w-full overflow-hidden"
+  data-aos="fade-up"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out"
+>
+  <div class="max-w-screen-page mx-auto h-full lg:min-h-[36rem] mb-16  pt-10">
+    {%- for block in section.blocks -%}
+      {% case block.type %}
+        {%- when 'title' -%}
+          <h1
+            class="{{ block.settings.color }}  font-bold text-title_movil lg:text-title uppercase tracking-normal text-center font-fredasansstd mb-8"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.title_page }}
+          </h1>
+        {%- when 'subheading' -%}
+          <h2
+            class="{{ block.settings.color }} font-bold tracking-normal uppercase text-title_movil text-center font-fredasansstd mb-2.5 mt-10"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.sub_heading }}
+          </h2>
+
+        {%- when 'question' -%}
+          {%- liquid
+            assign color = block.settings.color
+            assign bg_color = ''
+            assign icon_color = ''
+            case color
+              when 'text-dark-charcoal'
+                assign bg_color = 'bg-chinese-silver/10'
+                assign icon_color = 'stroke-dark-charcoal'
+
+              when 'text-medium-electric-blue'
+                assign bg_color = 'bg-rich-electric-blue/10'
+                assign icon_color = 'stroke-medium-electric-blue'
+
+              when 'text-harvest-gold'
+                assign bg_color = 'bg-spanish-yellow/10'
+                assign icon_color = 'stroke-harvest-gold'
+
+              when 'text-maximum-purple'
+                assign bg_color = 'bg-pearly-purple/10'
+                assign icon_color = 'stroke-maximum-purple'
+
+              when 'text-maroon'
+                assign bg_color = 'bg-pastel-red/10'
+                assign icon_color = 'stroke-maroon'
+
+              when 'text-avocado'
+                assign bg_color = 'bg-dark-lemon-lime/10'
+                assign icon_color = 'stroke-avocado'
+            endcase
+          %}
+
+          <div {{ block.shopify_attributes }} class="{{ bg_color }} p-4 rounded-lg mx-5 mb-2.5">
+            <details class="font-fredasansstd tracking-normal transform transition-all ease-in-out duration-300 group">
+              <summary class="flex flex-row gap-2.5 justify-between items-center transform transition-all ease-in-out duration-300 ">
+                <h3 class="{{ color }} font-fredasansstd text-start font-bold text-sm flex-1">
+                  {{ block.settings.question }}
+                </h3>
+                <span
+                  class="cursor-pointer text-center w-6 h-6 flex-none  ml-auto flex justify-center transform transition-transform duration-300 -rotate-90 ease-in-out group-open:rotate-0"
+                  aria-label="Ver más"
+                >
+                  {% render 'icon-arrow-down', color: icon_color -%}
+                </span>
+              </summary>
+
+              <div class="tracking-normal text-xs text-dark-charcoal font-book [&>p]:mb-2.5 pt-4 [&>p>a]:text-rich-electric-blue">
+                {% if block.settings.answer != empty %}
+                  {{ block.settings.answer }}
+                {% endif %}
+              </div>
+            </details>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Accordion",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 45,
+  "settings": [],
+  "blocks": [
+    {
+      "name": "Titulo",
+      "type": "title",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_page",
+          "label": "Título de la página",
+          "default": "Preguntas Frecuentes"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Color",
+          "options": [
+            {
+              "value": "text-dark-charcoal",
+              "label": "Dark Charcoal"
+            },
+            {
+              "value": "text-medium-electric-blue",
+              "label": "Medium Electric Blue"
+            },
+            {
+              "value": "text-avocado",
+              "label": "Avocado"
+            },
+            {
+              "value": "text-harvest-gold",
+              "label": "Harvest Gold"
+            },
+            {
+              "value": "text-maximum-purple",
+              "label": "Maximum Purple"
+            },
+            {
+              "value": "text-maroon",
+              "label": "Maroom"
+            }
+          ],
+          "default": "text-avocado"
+        }
+      ]
+    },
+    {
+      "name": "Encabezado",
+      "type": "subheading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "sub_heading",
+          "label": "Encabezado",
+          "default": "Encabezado"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Color",
+          "options": [
+            {
+              "value": "text-dark-charcoal",
+              "label": "Dark Charcoal"
+            },
+            {
+              "value": "text-medium-electric-blue",
+              "label": "Medium Electric Blue"
+            },
+            {
+              "value": "text-avocado",
+              "label": "Avocado"
+            },
+            {
+              "value": "text-harvest-gold",
+              "label": "Harvest Gold"
+            },
+            {
+              "value": "text-maximum-purple",
+              "label": "Maximum Purple"
+            },
+            {
+              "value": "text-maroon",
+              "label": "Maroom"
+            }
+          ],
+          "default": "text-avocado"
+        }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Pregunta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Pregunta",
+          "default": "Pregunta"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Respuesta"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Color",
+          "options": [
+            {
+              "value": "text-dark-charcoal",
+              "label": "Dark Charcoal"
+            },
+            {
+              "value": "text-medium-electric-blue",
+              "label": "Medium Electric Blue"
+            },
+            {
+              "value": "text-avocado",
+              "label": "Avocado"
+            },
+            {
+              "value": "text-harvest-gold",
+              "label": "Harvest Gold"
+            },
+            {
+              "value": "text-maximum-purple",
+              "label": "Maximum Purple"
+            },
+            {
+              "value": "text-maroon",
+              "label": "Maroom"
+            }
+          ],
+          "default": "text-avocado"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Accordion Mb",
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "question"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

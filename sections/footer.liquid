@@ -1,0 +1,378 @@
+{%- liquid
+  assign has_social_icons = true
+  if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
+    assign has_social_icons = false
+  endif
+-%}
+<footer
+  class="bg-anti-flash-white overflow-hidden"
+>
+  <div class="w-full bg-dark-charcoal">
+    <div class="max-w-screen-page mx-auto flex flex-col lg:flex-row justify-between items-center p-7  lg:p-5">
+      <div>
+        <h2 class="font-fredasansstd text-subtitle uppercase text-white tracking-normal mb-2.5 lg:mb-0">
+          Hablarnos es fácil
+        </h2>
+      </div>
+      <div class="text-white flex flex-col lg:flex-row tracking-normal text-xs">
+        <a
+          {% if section.settings.text_whatsapp != blank %}
+            aria-label="{{ section.settings.text_whatsapp }}" href="https://wa.me/52{{ section.settings.text_whatsapp }}/"
+          {% else %}
+            href="#"
+          {% endif %}
+          class="inline-flex justify-center items-start mb-2.5 lg:mb-0 lg:mr-4"
+        >
+          {% render 'icon-whatsapp-mb' -%}
+          <span class="font-fredasansstd font-book pl-2.5"
+            >Mándanos un mensaje al:
+            <br>
+            {% if section.settings.text_whatsapp != blank %}
+              {{ section.settings.text_whatsapp }}
+            {% else %}
+              Agregue un número
+            {% endif %}
+          </span>
+        </a>
+        <a
+          {% if section.settings.text_mail != blank %}
+            aria-label="{{ section.settings.text_mail }}" href="mailto:{{ section.settings.text_mail }}"
+          {% else %}
+            href="#"
+          {% endif %}
+          class="inline-flex justify-center items-start"
+        >
+          {% render 'icon-at-mb' -%}
+          <span class="font-fredasansstd font-book pl-2.5"
+            >Mándanos un correo a:
+            <br>
+            {% if section.settings.text_mail != blank %}
+              {{ section.settings.text_mail }}
+            {% else %}
+              Agregue un correo
+            {% endif %}
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-screen-page mx-auto grid grid-cols-12 grid-rows-none gap-2 lg:gap-4 p-7 lg:p-2.5 lg:py-6 min-h-[40rem]  lg:min-h-[402px]  relative">
+    {%- if section.settings.image_background != null -%}
+      {{
+        section.settings.image_background
+        | image_url: width: 144
+        | image_tag: class: 'hidden lg:block absolute object-cover -right-40  top-2.5', loading: 'lazy'
+      }}
+    {%- else -%}
+      <div class="hidden lg:block absolute w-36 h-36 -right-40 top-2.5">
+        {{
+          'image'
+          | placeholder_svg_tag: 'bg-chinese-silver fill-dark-charcoal block absolute w-full h-full left-0 right-0'
+        }}
+      </div>
+    {%- endif -%}
+    <div class="col-span-12 row-span-4 lg:row-span-1 flex flex-nowrap relative after:content-[''] after:block after:absolute after:w-full after:-bottom-2.5 after:bg-dark-charcoal after:h-0.5 after:rounded-full lg:pb-5">
+      <div class="w-5/12 lg:w-4/12 flex items-center  justify-start lg:justify-start pl-8">
+        {%- if section.settings.image_logo != null -%}
+          {{ section.settings.image_logo | image_url: width: 70 | image_tag: class: 'object-cover', loading: 'lazy' }}
+        {%- else -%}
+          <div class="relative w-16 h-8">
+            {{
+              'image'
+              | placeholder_svg_tag: 'bg-chinese-silver fill-dark-charcoal block absolute w-full h-full left-0 right-0'
+            }}
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="hidden w-8/12 justify-end text-right lg:flex flex-row">
+        {%- if section.settings.show_social and has_social_icons -%}
+          {%- render 'social-links' -%}
+        {%- endif -%}
+      </div>
+      <div class="w-7/12 lg:w-8/12 flex justify-end items-center lg:hidden pr-8">
+        {%- if section.settings.image_background != null -%}
+          {{
+            section.settings.image_background
+            | image_url: width: 80
+            | image_tag: class: 'object-contain', loading: 'lazy'
+          }}
+        {%- else -%}
+          <div class="relative w-20 h-20">
+            {{
+              'image'
+              | placeholder_svg_tag: 'bg-chinese-silver fill-dark-charcoal block absolute w-full h-full left-0 right-0'
+            }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if section.settings.show_social and has_social_icons -%}
+      <div class="col-span-12 row-span-5 lg:hidden">
+        {%- render 'social-links' -%}
+      </div>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      {%- liquid
+        if section.blocks.size > 5
+          assign footer_class_block = 'grid-cols-6'
+        elsif section.blocks.size > 4
+          assign footer_class_block = 'grid-cols-6 md:grid-cols-5'
+        elsif section.blocks.size > 3
+          assign footer_class_block = 'grid-cols-4'
+        elsif section.blocks.size > 2
+          assign footer_class_block = 'grid-cols-3'
+        elsif section.blocks.size > 1
+          assign footer_class_block = 'grid-cols-2'
+        elsif section.blocks.size > 0
+          assign footer_class_block = 'grid-cols-1'
+        endif
+      -%}
+      <div class="col-span-12 lg:row-span-2 grid {{ footer_class_block }} pt-3 lg:py-10 lg:pb-2  grid-rows-2 lg:grid-rows-none relative">
+        {%- for block in section.blocks -%}
+          <div
+            class="col-span-2 row-span-2 lg:col-span-1 pb-7 lg:pb-0"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.heading != blank -%}
+              <h2 class="text-sm font-bold font-fredasansstd tracking-normal text-dark-charcoal">
+                {{- block.settings.heading -}}
+              </h2>
+            {%- endif -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                {% render block %}
+              {%- when 'text' -%}
+                <div class="text-xs font-book font-fredasansstd">
+                  {{ block.settings.subtext }}
+                </div>
+              {%- when 'link_list' -%}
+                {%- if block.settings.menu != blank -%}
+                  <ul>
+                    {%- for link in block.settings.menu.links -%}
+                      <li>
+                        <a
+                          href="{{ link.url }}"
+                          class="text-xs font-fredasansstd tracking-normal font-book text-dark-charcoal hover:underline"
+                        >
+                          {{ link.title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+            {%- endcase %}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    <div class="col-span-12 relative flex justify-center  after:content-[''] after:block after:absolute after:w-full after:-bottom-2.5 after:bg-dark-charcoal after:h-0.5 after:rounded-full">
+      {% assign enabled_payment_types = 'visa,master,american_express,paypal,oxxo,kueski_pay' | split: ',' %}
+
+      <ul class="list inline-flex pb-4" role="list">
+      {% for type in enabled_payment_types %}
+        <li class="mr-2 last:mr-0 flex items-center">
+        {% if type == 'kueski_pay' %}
+          <img src="{{ 'kueski-pay.png' | asset_url }}" alt="Kueski Pay" style="height:24px; width:auto; display:block" loading="lazy">
+          {% else %}
+          {{ type | payment_type_svg_tag }}
+        {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      
+    {%- comment -%} Código antes de agregar el logo de Kueski 
+      {% assign enabled_payment_types = 'visa,master,american_express,paypal,oxxo,discover'
+        | remove: 'discover'
+        | split: ','
+      %}
+      <ul class="list inline-flex pb-4" role="list">
+        {%- for type in enabled_payment_types -%}
+          <li class="mr-2 last:mr-0">
+            {{ type | payment_type_svg_tag }}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endcomment -%}
+    </div>
+    <div class="col-span-12 row-span-2 lg:row-span-1 flex items-start justify-between pt-4 lg:pt-0">
+      <p class="font-fredasansstd text-xs tracking-normal font-book">
+        {% if section.settings.footer_text_bottom != blank -%}
+          {{ section.settings.footer_text_bottom }}
+        {%- endif -%}
+      </p>
+      <p class="font-fredasansstd tracking-normal text-xs font-book">
+        {{ shop.name | link_to: routes.root_url -}}
+        &copy; {{ 'now' | date: '%Y' }}
+      </p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "link_list",
+      "name": "t:sections.footer.blocks.link_list.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Quick links",
+          "label": "t:sections.footer.blocks.link_list.settings.heading.label"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "t:sections.footer.blocks.link_list.settings.menu.label",
+          "info": "t:sections.footer.blocks.link_list.settings.menu.info"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.footer.blocks.text.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading",
+          "label": "t:sections.footer.blocks.text.settings.heading.label"
+        },
+        {
+          "type": "richtext",
+          "id": "subtext",
+          "default": "<p>Share contact information, store details, and brand content with your customers.</p>",
+          "label": "t:sections.footer.blocks.text.settings.subtext.label"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "Pleca de Contacto",
+      "info": "Añada un número de teléfono y un correo electrónico"
+    },
+    {
+      "type": "text",
+      "id": "text_whatsapp",
+      "label": "Número de teléfono",
+      "default": "4777717373"
+    },
+    {
+      "type": "text",
+      "id": "text_mail",
+      "label": "Correo electrónico",
+      "default": "tienda@miniburbujas.mx"
+    },
+    {
+      "type": "header",
+      "content": "Image logo",
+      "info": "Select the image logo you want in the footer"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_logo",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Image backgound",
+      "info": "Select the image background (aspect 1:1, 144x144px) you want in the footer right side"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_background",
+      "label": "Image background"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.header__2.content",
+      "info": "t:sections.footer.settings.header__2.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "default": true,
+      "label": "t:sections.footer.settings.show_social.label"
+    },
+    {
+      "type": "text",
+      "id": "footer_text_bottom",
+      "label": "Footer buttom phrase",
+      "default": "Zapatos para niñas, niños y bebés"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.header__8.content",
+      "info": "t:sections.footer.settings.header__8.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policy",
+      "default": false,
+      "label": "t:sections.footer.settings.show_policy.label"
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "link_list"
+      }
+    ]
+  }
+}
+{% endschema %}

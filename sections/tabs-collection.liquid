@@ -1,0 +1,269 @@
+<div
+  class="section-{{ section.id }}-padding w-full my-2.5 lg:mt-20"
+  x-data="{ activeTab: 0 }"
+  data-aos="fade-up"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out" 
+>
+  <div class="max-w-screen-page mx-auto p-2.5">
+    {% if section.settings.title != blank %}
+      <h2 class="text-medium-electric-blue font-bold font-fredasansstd text-title_movil tracking-normal lg:text-title text-center uppercase">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    <div class="flex gap-2 lg:gap-5 h-8 lg:h-40 my-2.5">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'collection' %}
+            {% if block.settings.collection == blank %}
+              <div
+                @click="activeTab = {{ forloop.index0 }}"
+                class="transition-all duration-300 ease-in-out group  cursor-pointer flex flex-col justify-center items-center w-1/3 text-center gap-5 px-0 lg:px-9 relative  after:content-[''] after:block after:absolute after:w-full after:-bottom-0  after:rounded-full"
+                :class="activeTab == {{ forloop.index0 }} ? 'after:bg-rich-electric-blue after:h-0.5 lg:after:h-1' : 'after:bg-chinese-silver after:h-[1px] lg:after:h-0.5'"
+                {{ block.shopify_attributes }}
+              >
+                <h3
+                  class=" transition-colors duration-300 ease-in-out  font-bold font-fredasansstd tracking-normal text-xs lg:text-subtitle uppercase group-hover:text-rich-electric-blue"
+                  :class="activeTab == {{ forloop.index0 }} ? 'text-rich-electric-blue': 'text-chinese-silver'"
+                >
+                  Colección
+                </h3>
+                <P
+                  class="transition-colors duration-300 ease-in-out  font-book text-sm font-fredasansstd tracking-normal group-hover:text-dark-charcoal hidden lg:block"
+                  :class="activeTab == {{ forloop.index0 }} ? 'text-dark-charcoal': 'text-chinese-silver'"
+                >
+                  Descripción de la colección
+                </P>
+              </div>
+            {% else %}
+              <div
+                @click="activeTab = {{ forloop.index0 }}"
+                class="transition-all duration-300 ease-in-out group cursor-pointer flex flex-col justify-center items-center w-1/3 text-center gap-5 px-0 lg:px-9  relative  after:content-[''] after:block after:absolute after:w-full after:-bottom-0  after:rounded-full"
+                :class="activeTab == {{ forloop.index0 }} ? 'after:bg-rich-electric-blue after:h-0.5 lg:after:h-1' : 'after:bg-chinese-silver after:h-[1px] lg:after:h-0.5'"
+                {{ block.shopify_attributes }}
+              >
+                <h3
+                  class=" transition-colors duration-300 ease-in-out  font-bold font-fredasansstd tracking-normal text-xs lg:text-subtitle uppercase group-hover:text-rich-electric-blue"
+                  :class="activeTab == {{ forloop.index0 }} ? 'text-rich-electric-blue': 'text-chinese-silver'"
+                >
+                  {% if block.settings.custom_text and block.settings.custom_title != blank %}
+                    <span class="hidden lg:block">{{ block.settings.custom_title }}</span> 
+                    {% if block.settings.custom_title_movil != blank %}
+                      <span class="lg:hidden">{{ block.settings.custom_title_movil }}</span>
+                    {% endif %}
+                  {% else %}
+                    <span>{{ block.settings.collection.title | truncate: 20, '...' }}</span>
+                  {% endif %}
+                </h3>
+                <P
+                  class="transition-colors duration-300 ease-in-out  font-book text-sm font-fredasansstd tracking-normal group-hover:text-dark-charcoal hidden lg:block"
+                  :class="activeTab == {{ forloop.index0 }} ? 'text-dark-charcoal': 'text-chinese-silver'"
+                >
+                  {% if block.settings.custom_text and block.settings.custom_description != blank %}
+                    <span> {{ block.settings.custom_description }}</span>
+                  {% else %}
+                    <span> {{ block.settings.collection.description }}</span>
+                  {% endif %}
+                </P>
+              </div>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'collection' %}
+        <div
+          class="transition-opacity duration-300 ease-in-out swiper swiper-colecction-{{ forloop.index0 }} hidden w-full min-h-[244px] lg:min-h-[470px] mb-2 lg:mb-20 "
+          :class="activeTab == {{ forloop.index0 }} ? 'opacity-100 !block' :'opacity-0'"
+          {{ block.shopify_attributes }}
+        >
+          <div class="swiper-wrapper">
+            {% if block.settings.collection == blank %}
+              {% for i in (1..6) -%}
+                <div class="swiper-slide w-60 lg:w-[460px] h-full block relative ">
+                  {% render 'card-product-mb'
+                  %}
+                </div>
+              {%- endfor %}
+            {% else %}
+              {% for product in block.settings.collection.products limit: 15 %}
+                <div class="swiper-slide h-full w-60 lg:w-[460px]  block relative">
+                  {% render 'card-product-mb',
+                    collection: block.settings.collection,
+                    card_product: product,
+                    media_aspect_ratio: 'portrait',
+                    show_secondary_image: true,
+                    section_id: section.id,
+                    button_color: 'bg-medium-electric-blue'
+                  %}
+                  {% comment %}
+                      render product card
+
+                    <div class="h-full flex flex-col gap-5">
+                      {% comment %}
+                        Imagen del producto
+                      {% endcomment %}
+                      <div class="h-60 bg-chinese-silver rounded-lg w-full">.</div>
+                      {% comment %}
+                        Descripción del producto
+                      {% endcomment %}
+                      <div class="h-[60px] w-full flex gap-5">
+                        <div class="w-6/12">
+                          {{ product.title }}
+                        </div>
+                        <div class="w-2/12">
+                          {{ product.compare_at_price | money }}
+                        </div>
+                        <div class="w-2/12">
+                          {{ product.price | money }}
+                        </div>
+                      </div>
+
+                      {% comment %}
+                        CTA
+                      {% endcomment %}
+                      <div class="w-full">
+                        <a class="bg-dark-charcoal text-white transition ease-in-out duration-300 py-5 px-12 inline-flex justify-center rounded-full  text-sm font-bold font-fredasansstd cursor-pointer hover:bg-rich-electric-blue hover:text-white">
+                          Consíguelo ya
+                        </a>
+                      </div>
+                    </div>
+                  {% endcomment %}
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          {% comment %}
+            If we need navigation buttons
+          {% endcomment %}
+          <div class="hidden lg:flex navigation-prev-{{ forloop.index0 }} h-10 w-10 rounded-full bg-rich-electric-blue absolute left-10 top-1/4 z-10 justify-center items-center pr-1 transition duration-200 ease-in-out shadow-md hover:scale-110 active:scale-100 active:bg-rich-electric-blue/60">
+            {% render 'icon-prev-arrowmb' %}
+          </div>
+          <div class="hidden lg:flex navigation-next-{{ forloop.index0 }} h-10 w-10 rounded-full bg-rich-electric-blue absolute right-10 top-1/4 z-10 justify-center items-center pl-1 transition duration-200 ease-in-out shadow-md hover:scale-110 active:scale-100 active:bg-rich-electric-blue/60">
+            {% render 'icon-next-arrowmb' %}
+          </div>
+        </div>
+    {% endcase %}
+  {% endfor %}
+</div>
+
+{% if section.blocks.size > 0 %}
+  <script>
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'collection' %}
+          window.addEventListener('load', function () {
+            const swiper = new Swiper('.swiper-colecction-{{ forloop.index0 }}', {
+              // Optional parameters
+              direction: 'horizontal',
+              loop: true,
+              width:425,
+              slidesPerView:'auto',
+              centeredSlides: true,
+              spaceBetween: 8,
+              lazyLoading: true,
+              keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+              },
+                // Navigation arrows
+               navigation: {
+                  nextEl: '.navigation-next-{{ forloop.index0 }} ',
+                  prevEl: '.navigation-prev-{{ forloop.index0 }}',
+              },
+
+              //Break Point
+              breakpoints:{
+                1024: {
+                  width:960,
+                  spaceBetween: 20,
+                },
+              }
+            });
+          });
+      {% endcase %}
+    {% endfor %}
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Tabs Collection",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Encabzado",
+      "default": "Colecciones"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Collection",
+      "type": "collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "header",
+          "content": "Texto personalizado de la colección"
+        },
+        {
+          "type": "checkbox",
+          "id": "custom_text",
+          "label": "Usar título y descripción personalizada",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Texto en Desktop"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Título personalizado",
+          "default": "Título"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_description",
+          "label": "Descripción personalizada",
+          "default": "Decripción personalizada"
+        },
+        {
+          "type": "header",
+          "content": "Texto en Móvil"
+        },
+        {
+          "type": "text",
+          "id": "custom_title_movil",
+          "label": "Título personalizado",
+          "default": "Título"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabs Collection",
+      "blocks": [
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

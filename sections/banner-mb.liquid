@@ -1,0 +1,278 @@
+{% if section.settings.style_banner == 'first_style' %}
+  <div
+    class="w-full overflow-hidden"
+    data-aos="fade-up"
+    data-aos-duration="2500"
+    data-aos-easing="ease-in-out"
+  >
+    <div class="max-w-screen-page mx-auto h-full lg:h-[40rem] flex flex-col lg:flex-row justify-center items-stretch gap-2.5 pt-8 lg:pt-0">
+      <div class="w-full lg:w-1/2 relative p-8 pb-4 lg:p-2.5 flex flex-col justify-center gap-2.5 lg:gap-5">
+        {%- for block in section.blocks -%}
+          {% case block.type %}
+            {%- when 'subheading' -%}
+              <h2
+                class="font-fredasansstd font-bold text-title_movil tracking-normal  mb-1"
+                {{ block.shopify_attributes }}
+              >
+                <span class="text-dark-charcoal"> {{ block.settings.sub_heading_first }}</span>
+                <span class="text-rich-electric-blue">{{ block.settings.sub_heading_second }} </span>
+              </h2>
+            {%- when 'heading' -%}
+              <h1
+                class="font-fredasansstd font-bold text-title_movil lg:text-title  text-rich-electric-blue tracking-normal mb-1"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.heading }}
+              </h1>
+            {%- when 'paragraph' -%}
+              <div
+                class="font-fredasansstd font-book text-sm text-dark-charcoal tracking-normal"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.paragraph }}
+              </div>
+
+            {%- when 'button' -%}
+              {%- if block.settings.button_label != blank -%}
+                <a
+                  {% if block.settings.button_link == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.button_link }}"
+                  {% endif %}
+                  class="bg-rich-electric-blue text-white tracking-wider py-5 px-7 lg:py-5 lg:px-12 inline-flex justify-center rounded-full  text-xs lg:text-sm font-bold font-fredasansstd mr-auto cursor-pointer "
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.button_label | escape }}
+                </a>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      <div class="w-full lg:w-1/2 flex justify-center items-center p-8 pt-4 lg:p-0">
+        <div class="w-full sm:max-w-xs md:max-w-sm lg:max-w-full h-full lg:h-[30rem] rounded-full overflow-hidden bg-rich-electric-blue/70">
+          {% if section.settings.image_with_text_image %}
+            {{
+              section.settings.image_with_text_image
+              | image_url: width: 2048
+              | image_tag: class: 'block h-full w-full object-cover aspect-square', loading: 'lazy'
+            }}
+          {% else %}
+            {{
+              'lifestyle-1'
+              | placeholder_svg_tag: 'bg-dark-charcoal/75 h-full fill-dark-charcoal block w-full aspect-square'
+            }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  {% comment %}
+    Segundo estilo de banner
+  {% endcomment %}
+  <div
+    class="w-full overflow-hidden bg-rich-electric-blue  relative"
+    data-aos="fade-up"
+    data-aos-duration="2000"
+    data-aos-easing="ease-in-out"
+  >
+    <div class="max-w-screen-page mx-auto h-full lg:h-[40rem] flex flex-col lg:flex-row justify-center items-stretch gap-2.5 pt-8 lg:pt-0">
+      <div class="w-full lg:w-1/2 relative p-8 pb-4 lg:p-2.5 flex flex-col justify-center gap-2.5 lg:gap-5">
+        {%- for block in section.blocks -%}
+          {% case block.type %}
+            {%- when 'subheading' -%}
+              <h2
+                class="font-fredasansstd font-bold text-title_movil tracking-normal  mb-1"
+                {{ block.shopify_attributes }}
+              >
+                <span class="text-white"> {{ block.settings.sub_heading_first }}</span>
+                <span class="text-white">{{ block.settings.sub_heading_second }} </span>
+              </h2>
+            {%- when 'heading' -%}
+              <h1
+                class="font-fredasansstd font-bold text-title_movil lg:text-title  text-white tracking-normal mb-1"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.heading }}
+              </h1>
+            {%- when 'paragraph' -%}
+              <div
+                class="font-fredasansstd font-book text-sm text-white tracking-normal"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.paragraph }}
+              </div>
+
+            {%- when 'button' -%}
+              {%- if block.settings.button_label != blank -%}
+                <a
+                  {% if block.settings.button_link == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.button_link }}"
+                  {% endif %}
+                  class="bg-white text-rich-electric-blue tracking-wider py-5 px-7 lg:py-5 lg:px-12 inline-flex justify-center rounded-full  text-xs lg:text-sm font-bold font-fredasansstd mr-auto cursor-pointer "
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.button_label | escape }}
+                </a>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      <div class="w-full lg:w-1/2 flex justify-center items-center p-8 pt-4 lg:p-0">
+        <div class="w-full sm:max-w-xs md:max-w-sm lg:max-w-full  rounded-lg overflow-hidden bg-rich-electric-blue/70 lg:hidden">
+          {% if section.settings.image_with_text_image %}
+            {{
+              section.settings.image_with_text_image
+              | image_url: width: 2048
+              | image_tag: heigth: 2048, class: 'block h-full w-full object-cover', loading: 'lazy'
+            }}
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'bg-dark-charcoal/75 h-full fill-dark-charcoal block w-full' }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="absolute w-1/2 h-full rounded-2xl top-0 bottom-0 -right-16 overflow-hidden -skew-x-[10deg] bg-white hidden lg:block">
+      {% if section.settings.image_with_text_image %}
+        {{
+          section.settings.image_with_text_image
+          | image_url: width: 2048
+          | image_tag:
+            class: 'block h-full w-full object-cover object-right skew-x-[10deg] absolute top-0 bottom-0 right-16',
+            loading: 'lazy'
+        }}
+      {% else %}
+        {{
+          'lifestyle-1'
+          | placeholder_svg_tag: 'bg-dark-charcoal/75 h-full fill-dark-charcoal block w-full skew-x-[10deg] absolute top-0 bottom-0 right-16'
+        }}
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Banner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_with_text_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "select",
+      "id": "style_banner",
+      "label": "Estilo del banner",
+      "options": [
+        {
+          "value": "first_style",
+          "label": "Estilo 1"
+        },
+        {
+          "value": "second_style",
+          "label": "Estilo dos"
+        }
+      ],
+      "default": "first_style"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Encabezado",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Encabezado",
+          "default": "Distribuidor Mini Burbujas"
+        }
+      ]
+    },
+    { 
+      "type": "subheading",
+      "name": "Sub Encabezado",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "sub_heading_first",
+          "label": "Encabezado primera frase",
+          "default": "Mini "
+        },
+        {
+          "type": "text",
+          "id": "sub_heading_second",
+          "label": "Encabezado segunda frase",
+          "default": "Burbujas"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "Párrafo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "paragraph",
+          "label": "Paragraph",
+          "default": "<p> Si estás pensando en emprender o en impulsar tu negocio de calzado infantil estás en el lugar ideal para convertirte en Distribuidor de Mini Burbujas. </p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Botón",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto del Botón",
+          "default": "Más información"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "link del botón"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Mb",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "paragraph"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,138 @@
+<div
+  class="w-full mt-10 lg:mt-0 lg:mb-5 bg-pale-cyan/10 overflow-hidden"
+  data-aos="fade-up"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out"
+>
+  <div class="max-w-screen-page mx-auto flex flex-col lg:flex-row justify-center items-stretch gap-2.5 ">
+    <div class="w-full lg:w-1/2 relative flex justify-center items-center">
+      <div class="w-full relative min-h-[244px] lg:min-h-full block lg:absolute lg:w-[50vw] h-full lg:right-0">
+        {% if section.settings.image_with_text_image %}
+          {{
+            section.settings.image_with_text_image
+            | image_url: width: 2048
+            | image_tag: class: 'absolute h-full w-full left-0 right-0 object-cover', loading: 'lazy'
+          }}
+        {% else %}
+          {{
+            'lifestyle-1'
+            | placeholder_svg_tag: 'bg-dark-charcoal/75 fill-dark-charcoal block absolute w-full h-full left-0 right-0'
+          }}
+        {% endif %}
+      </div>
+    </div>
+    <div class="w-full lg:w-1/2 relative  px-12 py-7 lg:p-20 lg:pr-6 flex flex-col gap-5">
+      {%- for block in section.blocks -%}
+        {% case block.type %}
+          {%- when 'heading' -%}
+            <h2
+              class="font-fredasansstd font-bold text-title_movil lg:text-title  text-medium-electric-blue tracking-normal uppercase mb-1"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.heading }}
+            </h2>
+          {%- when 'paragraph' -%}
+            <div class="font-fredasansstd font-book text-xs text-dark-charcoal tracking-normal" {{ block.shopify_attributes }}>
+              {{ block.settings.paragraph }}
+            </div>
+
+          {%- when 'button' -%}
+            {%- if block.settings.button_label != blank -%}
+              <a
+                {% if block.settings.button_link == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ block.settings.button_link }}"
+                {% endif %}
+                class="bg-rich-electric-blue text-white tracking-wider py-5 px-7 lg:py-5 lg:px-12 inline-flex justify-center rounded-full  text-xs lg:text-sm font-bold font-fredasansstd mx-auto  lg:m-0 lg:mr-auto cursor-pointer "
+                {{ block.shopify_attributes }}
+              > 
+                {{ block.settings.button_label | escape }}
+              </a>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_with_text_image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Encabezado",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Encabezado",
+          "default": "Somos familia"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "Párrafo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "paragraph",
+          "label": "Paragraph",
+          "default": "<p> En Mini Burbujas nos gusta ser parte de la historia de cada familia. Ahí estamos día con día, en las memorias de los eventos importantes, en todos los pasitos que cada niña y niño van dando mientras crecen, mientras se hacen grandes.<br><br>Nos satisface saber que cuando se abre un álbum familiar estamos presentes, no solo en una sino en varias generaciones. Eso nos enorgullece, enriquece nuestra misión, le da sentido a nuestro trabajo y nuestra pasión por ser cada día mejores.<br><br>¡Gracias familias! </p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Botón",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto del Botón",
+          "default": "Déjanos ser parte de tu familia"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "link del botón"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text mb",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "paragraph"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

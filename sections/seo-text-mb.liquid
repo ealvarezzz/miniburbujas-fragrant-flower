@@ -1,0 +1,124 @@
+<div
+  class="section-{{ section.id }}-padding w-full bg-pale-cyan/10"
+  data-aos="fade-up"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out"
+>
+  <div
+    class="max-w-screen-page mx-auto px-7 pt-7 pb-6 lg:p-2 lg:pb-10"
+    {%- if request.design_mode -%}
+      x-data="{ expanded: true }"
+
+    {%- else -%}
+      x-data="{ expanded: false }"
+    {%- endif -%}
+  >
+    <div class="w-full px-5 flex flex-row items-start lg:flex-col relative lg:pt-20">
+      <div class="pt-2 text-center lg:w-full grow">
+        {% if section.settings.title != blank %}
+          <h2 class="text-medium-electric-blue font-bold font-fredasansstd tracking-normal text-base lg:text-title_movil uppercase mb-4 lg:mb-6">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        {% if section.settings.text_content != blank %}
+          <p class="text-sm font-book font-fredasansstd text-dark-charcoal tracking-normal text-center">
+            {{ section.settings.text_content }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="w-full px-1 pt-3 pb-7 lg:pt-5 lg:pb-7">
+      <span class="w-full bg-rich-electric-blue rounded-full h-0.5 mx-auto block"></span>
+    </div>
+    <div
+      class="w-full flex items-center flex-wrap justify-start text-start"
+      x-show="expanded"
+      x-collapse.duration.1000ms
+    >
+      {%- for block in section.blocks -%}
+        {% case block.type %}
+          {%- when 'paragraph' -%}
+            <div
+              class="w-full p-2 pb-4 lg:w-1/2"
+              {{ block.shopify_attributes }}
+            >
+              {% if block.settings.title != blank %}
+                <h3 class="text-xs text-dark-charcoal font-bold font-fredasansstd tracking-normal mb-3 lg:mb-4">
+                  {{ block.settings.title }}
+                </h3>
+              {% endif %}
+              {% if block.settings.text_content != blank %}
+                <p class="text-xs text-dark-charcoal font-book font-fredasansstd tracking-normal">
+                  {{ block.settings.text_content }}
+                </p>
+              {% endif %}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    <button
+      class="cursor-pointer text-center mx-auto flex justify-center transform transition-transform duration-300 ease-in-out bg-transparent"
+      :class="expanded ? 'rotate-180': 'rotate-0'"
+      @click="expanded = ! expanded"
+      aria-label="Ver más"
+    >
+      {% render 'icon-arrow-down' -%}
+    </button>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Texto SEO",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Encabezado",
+      "default": "¿Por qué elegir calzado mini burbujas para tus hijos?"
+    },
+    {
+      "type": "textarea",
+      "id": "text_content",
+      "label": "Texto",
+      "default": "Queremos que sepas esto, sabemos que es importante para ti."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "name": "Párrafo",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Titulo"
+        },
+        {
+          "type": "textarea",
+          "id": "text_content",
+          "label": "Texto",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin, purus in ultricies porttitor, mi est gravida mauris, ut pretium eros quam nec risus. Nulla sagittis lorem ligula, nec aliquet erat condimentum eu. Morbi maximus massa a euismod condimentum. Maecenas vitae augue eleifend, gravida erat convallis, rhoncus magna. Suspendisse convallis faucibus orci, vel interdum dolor eleifend id. Nulla facilisi. Nunc ut malesuada elit. Morbi sit amet finibus elit."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Párrafo",
+      "blocks": [
+        {
+          "type": "paragraph"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

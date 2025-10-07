@@ -1,0 +1,203 @@
+<div
+  class="max-w-screen-page mx-auto pt-5 pb-6 lg:p-2 lg:mt-20"
+  data-aos="fade-up"
+  data-aos-duration="2000"
+  data-aos-easing="ease-in-out"
+>
+  {% if section.settings.title != blank %}
+    <h2 class="text-maximum-purple font-bold font-fredasansstd text-title_movil tracking-normal lg:text-title text-center uppercase mb-4">
+      {{ section.settings.title }}
+    </h2>
+  {% endif %}
+
+  <div class="w-full flex gap-2 lg:gap-5 justify-start items-center lg:grid lg:grid-cols-2 overflow-x-auto lg:overflow-x-hidden snap-x scroll-pl-10 lg:snap-none lg:scroll-pl-0 pt-2 pb-6 scroll-smooth">
+    {%- for block in section.blocks -%}
+      {% case block.type %}
+        {%- when 'category' -%}
+          <a
+            {% if block.settings.collection.url == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ block.settings.collection.url }}"
+            {% endif %}
+            class="first:pl-6 last:pr-6 lg:first:pl-0 lg:last:pr-0  lg:w-full group transition-all ease-in-out duration-200"
+            {{ block.shopify_attributes }}
+          >
+            <div class="flex justify-center flex-col text-center lg:text-start gap-2 lg:gap-3  w-56 lg:w-full shrink-0 snap-start">
+              {% if block.settings.title_category != blank and block.settings.custom_text %}
+                <h3 class="text-xs tracking-normal lg:text-subtitle font-fredasansstd uppercase text-maximum-purple font-bold lg:text-dark-charcoal lg:group-hover:text-maximum-purple group-hover:transition-colors group-hover:ease-in-out group-hover:duration-300 ">
+                  {{ block.settings.title_category }}
+                </h3>
+              {% elsif block.settings.collection != blank %}
+                <h3 class="text-xs tracking-normal lg:text-subtitle font-fredasansstd uppercase text-maximum-purple font-bold lg:text-dark-charcoal lg:group-hover:text-maximum-purple group-hover:transition-colors group-hover:ease-in-out group-hover:duration-300 ">
+                  {{ block.settings.collection.title | truncate: 25, '...' }}
+                </h3>
+              {% else %}
+                <h3 class="text-xs tracking-normal lg:text-subtitle font-fredasansstd uppercase text-maximum-purple font-bold lg:text-dark-charcoal lg:group-hover:text-maximum-purple group-hover:transition-colors group-hover:ease-in-out group-hover:duration-300 ">
+                  Colección
+                </h3>
+              {% endif %}
+
+              {% if block.settings.title_category != blank and block.settings.custom_text %}
+                <p class="text-xs font-book text-dark-charcoal font-fredasansstd tracking-normal hidden lg:block lg:text-sm">
+                  {{ block.settings.description }}
+                </p>
+              {% elsif block.settings.collection != blank %}
+                <p class="text-xs font-book text-dark-charcoal font-fredasansstd tracking-normal hidden lg:block lg:text-sm">
+                  {{ block.settings.collection.description | truncate: 55, '...' }}
+                </p>
+              {% else %}
+                <p class="text-xs font-book text-dark-charcoal font-fredasansstd tracking-normal hidden lg:block lg:text-sm">
+                  Los que no pueden faltar para cualquier outfit de tu peque
+                </p>
+              {% endif %}
+
+              <span
+                class="w-full block h-0.5 rounded-full bg-maximum-purple lg:bg-dark-charcoal lg:group-hover:bg-maximum-purple lg:group-hover:h-1 group-hover:transition-all group-hover:ease-in-out group-hover:duration-300 "
+              ></span>
+
+              <div class="h-36 w-full lg:h-[300px] rounded-lg relative block overflow-hidden lg:mt-1 ">
+                {% if block.settings.category_image %}
+                  {{
+                    block.settings.category_image
+                    | image_url: width: 455
+                    | image_tag:
+                      class: 'absolute h-full w-full left-0 right-0 top-0 bottom-0 object-cover z-20 lg:group-hover:opacity-0  group-hover:transition-opacity group-hover:ease-in-out group-hover:duration-300 group-hover:delay-75',
+                      loading: 'lazy'
+                  }}
+                {% else %}
+                  {{
+                    'collection-2'
+                    | placeholder_svg_tag: 'bg-chinese-silver fill-dark-charcoal block absolute w-full h-full left-0 right-0 top-0 bottom-0 z-20 lg:group-hover:opacity-0 group-hover:transition-opacity group-hover:ease-in-out group-hover:duration-300 group-hover:delay-75'
+                  }}
+                {% endif %}
+                <div class="absolute hidden lg:block h-full w-full left-0 right-0 top-0 bottom-0 object-cover z-10 text-dark-charcoal bg-medium-lavender-magenta/25 p-2.5 lg:p-4">
+                  {% if block.settings.title_seo != empty %}
+                    <h4 class="mb-2 text-pearly-purple">{{ block.settings.title_seo }}</h4>
+                  {% endif %}
+                  {% if block.settings.paragraph_seo != empty %}
+                    
+                      {{ block.settings.paragraph_seo }}
+                  
+                  {% endif %}
+                </div>
+
+                {% comment %}
+                  {% if block.settings.collection_image and block.settings.custom_image %}
+                    {{
+                      block.settings.collection_image
+                      | image_url: width: 455
+                      | image_tag:
+                        class: 'absolute  h-full w-full left-0 right-0 top-0 bottom-0 object-cover z-10',
+                        loading: 'lazy'
+                    }}
+
+                  {% elsif block.settings.collection.image %}
+                    {{
+                      block.settings.collection.image
+                      | image_url: width: 455
+                      | image_tag:
+                        class: 'absolute h-full w-full left-0 right-0 top-0 bottom-0 object-cover z-10',
+                        loading: 'lazy'
+                    }}
+
+                  {% else %}
+                    {{
+                      'product-2'
+                      | placeholder_svg_tag: 'bg-dark-charcoal/25 fill-dark-charcoal block absolute w-full h-full left-0 right-0 top-0 bottom-0 z-10'
+                    }}
+                  {% endif %}
+                {% endcomment %}
+              </div>
+            </div>
+          </a>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Categorias",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Encabezado",
+      "default": "Categorías"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categoría",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Colección"
+        },
+        {
+          "type": "image_picker",
+          "id": "category_image",
+          "label": "Imagen de portada"
+        },
+        {
+          "type": "header",
+          "content": "Usar texto personalizado"
+        },
+        {
+          "type": "checkbox",
+          "id": "custom_text",
+          "label": "Texto personalizado",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title_category",
+          "label": "Título",
+          "default": "Escolares"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descripción",
+          "default": "Junto a ustedes en los momentos más especiales"
+        },
+        {
+          "type": "header",
+          "content": "Texto SEO"
+        },
+        {
+          "type": "text",
+          "id": "title_seo",
+          "label": "Título",
+          "default": "Escolares"
+        },
+        {
+          "type": "richtext",
+          "id": "paragraph_seo",
+          "label": "Paragraph"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categorias",
+      "blocks": [
+        {
+          "type": "category"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
