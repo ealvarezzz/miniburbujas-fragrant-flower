@@ -1,1 +1,157 @@
-{"sections":{"main":{"type":"main-product-mb","blocks":{"title":{"type":"title","settings":{}},"loox_reviews_loox_rating_jVd6w7":{"type":"shopify:\/\/apps\/loox-reviews\/blocks\/loox-rating\/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e","settings":{"contentSize":16,"pattern":"","hideText":false,"alignment":"","layout":"","textColor":"","starColor":"","showAllReviews":false,"looxOpenFloatingWidget":false,"emptyRatingWidget":false}},"caption":{"type":"text","settings":{"text":"{{ product.metafields.descriptors.subtitle.value }}","text_style":"subtitle"}},"f2c354fc-5b10-4da1-b091-b0ccb1a77e9a":{"type":"shopify:\/\/apps\/automizely-product-reviews\/blocks\/product_page_star_widget\/beb80d6c-6526-44ce-8946-4a762954ca6d","disabled":true,"settings":{"block_alignment":"flex-start"}},"price":{"type":"price","settings":{}},"variant_picker":{"type":"variant_picker","settings":{"picker_type":"button"}},"8642c2f7-ad54-4248-8a2f-acced439ad22":{"type":"inventory","settings":{"text_style":"body","inventory_threshold":10,"show_inventory_quantity":true}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":true}},"702f5eb2-9fde-45a3-a666-c008c180beb4":{"type":"custom_liquid","settings":{"custom_liquid":"<kueskipay-widget\n     data-kpay-widget-type=\"product\"\n     data-kpay-widget-font-size=\"15\"\n     data-kpay-widget-text-align=“left”\n     data-kpay-widget-amount=\"{{ product.price }}\"\n     data-kpay-widget-product-name=\"{{ product.title }}\">\n<\/kueskipay-widget>\n<script id=\"kpay-advertising-script\"\n src=\"https:\/\/cdn.kueskipay.com\/widgets.js?authorization=0e2c9d24-8632-477b-83dd-50af00f51610&sandbox=false&integration=shopify&version=v1.0\">\n<\/script>\n<script type=\"\">new KueskipayAdvertising().init()"}},"share":{"type":"share","settings":{"share_label":"Compartir"}}},"block_order":["title","loox_reviews_loox_rating_jVd6w7","caption","f2c354fc-5b10-4da1-b091-b0ccb1a77e9a","price","variant_picker","8642c2f7-ad54-4248-8a2f-acced439ad22","buy_buttons","702f5eb2-9fde-45a3-a666-c008c180beb4","share"],"settings":{"enable_sticky_info":true,"media_size":"small","constrain_to_viewport":true,"media_fit":"contain","gallery_layout":"thumbnail_slider","media_position":"right","image_zoom":"lightbox","mobile_thumbnails":"hide","hide_variants":true,"enable_video_looping":false,"padding_top":36,"padding_bottom":12}},"1707868760a506dbeb":{"type":"apps","blocks":{"loox_reviews_loox_dynamic_section_kRRXCp":{"type":"shopify:\/\/apps\/loox-reviews\/blocks\/loox-dynamic-section\/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e","settings":{"only_photos":false,"aggregated":false,"limit":8,"hide_thumbnails":false,"maxwidth":1080,"is_sample":true}}},"block_order":["loox_reviews_loox_dynamic_section_kRRXCp"],"settings":{"include_margins":true}},"related-products":{"type":"related-products","settings":{"heading":"Más ideas de calzado","heading_size":"h2","products_to_show":4,"columns_desktop":4,"color_scheme":"background-1","image_ratio":"square","show_secondary_image":true,"show_vendor":false,"show_rating":false,"columns_mobile":"2","padding_top":36,"padding_bottom":28}}},"order":["main","1707868760a506dbeb","related-products"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product-mb",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "loox_reviews_loox_rating_jVd6w7": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "contentSize": 16,
+            "pattern": "",
+            "hideText": false,
+            "alignment": "",
+            "layout": "",
+            "textColor": "",
+            "starColor": "",
+            "showAllReviews": false,
+            "looxOpenFloatingWidget": false,
+            "emptyRatingWidget": false
+          }
+        },
+        "caption": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.metafields.descriptors.subtitle.value }}",
+            "text_style": "subtitle"
+          }
+        },
+        "f2c354fc-5b10-4da1-b091-b0ccb1a77e9a": {
+          "type": "shopify://apps/aftership-product-reviews/blocks/product_page_star_widget/beb80d6c-6526-44ce-8946-4a762954ca6d",
+          "disabled": true,
+          "settings": {
+            "block_alignment": "flex-start"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "8642c2f7-ad54-4248-8a2f-acced439ad22": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "702f5eb2-9fde-45a3-a666-c008c180beb4": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<kueskipay-widget\n     data-kpay-widget-type=\"product\"\n     data-kpay-widget-font-size=\"15\"\n     data-kpay-widget-text-align=“left”\n     data-kpay-widget-amount=\"{{ product.price }}\"\n     data-kpay-widget-product-name=\"{{ product.title }}\">\n</kueskipay-widget>\n<script id=\"kpay-advertising-script\"\n src=\"https://cdn.kueskipay.com/widgets.js?authorization=0e2c9d24-8632-477b-83dd-50af00f51610&sandbox=false&integration=shopify&version=v1.0\">\n</script>\n<script type=\"\">new KueskipayAdvertising().init()"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Compartir"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "loox_reviews_loox_rating_jVd6w7",
+        "caption",
+        "f2c354fc-5b10-4da1-b091-b0ccb1a77e9a",
+        "price",
+        "variant_picker",
+        "8642c2f7-ad54-4248-8a2f-acced439ad22",
+        "buy_buttons",
+        "702f5eb2-9fde-45a3-a666-c008c180beb4",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "media_size": "small",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "media_position": "right",
+        "image_zoom": "lightbox",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "1707868760a506dbeb": {
+      "type": "apps",
+      "blocks": {
+        "loox_reviews_loox_dynamic_section_kRRXCp": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "only_photos": false,
+            "aggregated": false,
+            "limit": 8,
+            "hide_thumbnails": false,
+            "maxwidth": 1080,
+            "is_sample": true
+          }
+        }
+      },
+      "block_order": [
+        "loox_reviews_loox_dynamic_section_kRRXCp"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "Más ideas de calzado",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1707868760a506dbeb",
+    "related-products"
+  ]
+}
