@@ -182,11 +182,6 @@
         "disabled": false,
         "settings": {}
       },
-      "pagefly-page-builder": {
-        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
-        "disabled": false,
-        "settings": {}
-      },
       "6588702529468458379": {
         "type": "shopify://apps/ecomposer-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
         "disabled": true,
@@ -194,6 +189,11 @@
       },
       "16216491870256628967": {
         "type": "shopify://apps/ta-labels-badges/blocks/bss-pl-config-data/91bfe765-b604-49a1-805e-3599fa600b24",
+        "disabled": true,
+        "settings": {}
+      },
+      "pagefly-page-builder": {
+        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
         "disabled": true,
         "settings": {}
       }
