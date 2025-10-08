@@ -127,7 +127,6 @@
       "inventory_out_of_stock_continue_selling": "In stock",
       "sku": "SKU",
       "on_sale": "Sale",
-      "quantity_in_cart_aria_label": "Quantity in cart: {{ quantity }}",
       "duties_and_taxes_included": "Duties and taxes included",
       "taxes_included": "Taxes included",
       "duties_included": "Duties included",
@@ -155,7 +154,8 @@
         "minimum_of": "Minimum of {{ quantity }}",
         "maximum_of": "Maximum of {{ quantity }}",
         "multiples_of": "Increments of {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> in cart"
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> in cart",
+        "in_cart_aria_label": "Quantity in cart: {{ quantity }}",
       },
       "pickup_availability": {
         "view_store_info": "View store information",
