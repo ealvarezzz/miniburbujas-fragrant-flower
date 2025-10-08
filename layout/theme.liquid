@@ -294,7 +294,9 @@
     {{ 'swiper-bundle.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'product-overrides.css' | asset_url | stylesheet_tag }}
-    {{ 'app.css' | asset_url | stylesheet_tag }}
+    {% comment %}
+      {{ 'app.css' | asset_url | stylesheet_tag }}
+    {% endcomment %}
 
     {% unless request.page_type == 'product' %}
       {{ 'app.css' | asset_url | stylesheet_tag }}
