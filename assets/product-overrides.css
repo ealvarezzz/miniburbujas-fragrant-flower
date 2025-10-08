@@ -1,6 +1,6 @@
 /* Solo el contenedor principal de producto */
 .section-{{ section.id }} .product.product--large.product--left.product--stacked.product--mobile-hide.grid.grid--1-col.grid--2-col-tablet{
-  display:block;       /* o display:flex; según tu layout */
+  display:flex;       /* o display:flex; según tu layout */
 }
 
 /* Mantén los otros grids internos (como tallas/galería) sin tocar */
