@@ -270,6 +270,9 @@
     }
   },
   "sections": {
+    "quick_order_list": {
+      "each": "Each"
+    },
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
